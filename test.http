@@ -1,0 +1,40 @@
+### GET example.com
+GET http://www.example.com/
+
+### GET JSON placeholder
+GET https://jsonplaceholder.typicode.com/posts
+
+### GET one post
+GET https://jsonplaceholder.typicode.com/posts/2
+
+### DELETE one post
+DELETE https://jsonplaceholder.typicode.com/posts/2
+
+### POST create one post
+POST https://jsonplaceholder.typicode.com/posts
+Content-Type: application/json
+
+{
+    "userId": 11,
+    "title": "New post!",
+    "body": "This is my post!"
+}
+
+### PUT update one post
+PUT https://jsonplaceholder.typicode.com/posts/2
+Content-Type: application/json
+
+{
+    "userId": 11,
+    "title": "Updated title!",
+    "body": "This is my updated post!"
+}
+
+### PATCH partial update
+PATCH https://jsonplaceholder.typicode.com/posts/3
+Content-Type: application/json
+
+{
+    "userId": 11,
+    "title": "Updated title!"
+}
