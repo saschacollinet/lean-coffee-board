@@ -19,15 +19,10 @@ let cards = [
 
 router.post('/', (request, response) => {
   const { text, author } = request.body
-  if (text === '' || author === '') {
-    const error = { message: 'Information missing.' }
-    return response.status(404).json(error)
-  } else {
-    const newCard = { text, author, id: nanoid() }
-    cards = [...cards, newCard]
-    // cards.push(newPost) Zweite Variante wie Zeile 26
-    return response.status(201).json(newCard)
-  }
+  const newCard = { text, author }
+  Card.create(newCard)
+    .then(newCard => response.status(201).json(newCard))
+    .catch(error => response.status(404).json(error))
 })
 
 router.get('/', (request, response) => {
