@@ -1,14 +1,34 @@
-### GET
-GET http://localhost:3000/
-
-### DELETE
-DELETE http://localhost:3000/
-
 ### POST
-POST http://localhost:3000/
+POST http://localhost:3000/api/cards/
+Content-Type: application/json
+
+{
+    "text": "This was a post request!",
+    "author": "Jason Doe"
+}
+
+### GET ALL
+GET http://localhost:3000/api/cards
+
+### GET ONE
+GET http://localhost:3000/api/cards/2
 
 ### PUT
-PUT http://localhost:3000/
+PUT http://localhost:3000/api/cards/1
+Content-Type: application/json
+
+{
+    "text": "This was a put request!",
+    "author": "John Doe"
+}
 
 ### PATCH
-PATCH http://localhost:3000/
+PATCH http://localhost:3000/api/cards/1
+Content-Type: application/json
+
+{
+    "text": "This was a patch request!"
+}
+
+### DELETE
+DELETE http://localhost:3000/api/cards/1
