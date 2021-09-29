@@ -11,7 +11,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/cards
 
 ### GET ONE
-GET http://localhost:3000/api/cards/2
+GET http://localhost:3000/api/cards/61543c3fa22ddadc24887a41
 
 ### PUT
 PUT http://localhost:3000/api/cards/1
@@ -31,4 +31,4 @@ Content-Type: application/json
 }
 
 ### DELETE
-DELETE http://localhost:3000/api/cards/1
+DELETE http://localhost:3000/api/cards/61543c3fa22ddadc24887a41

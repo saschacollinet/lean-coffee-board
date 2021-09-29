@@ -33,23 +33,14 @@ router.post('/', (request, response) => {
 router.get('/', (request, response) => {
   Card.find()
     .then(data => response.status(200).json(data))
-    .catch(error => response.status(400).json(error))
+    .catch(error => response.status(404).json(error))
 })
 
 router.get('/:id', (request, response) => {
   const { id } = request.params
-  const card = cards.find(card => card.id === id)
-  //   if (card) {
-  //     response.status(200).json(card)
-  //   } else {
-  //     const error = { message: 'Could not find object with that id.' }
-  //     response.status(404).json(error)
-  //   }
-  if (!card) {
-    const error = { message: 'Could not find object with that id.' }
-    return response.status(404).json(error)
-  }
-  return response.status(200).json(card)
+  Card.findById(id)
+    .then(singleData => response.status(200).json(singleData))
+    .catch(error => response.status(404).json(error))
 })
 
 router.put('/:id', (request, response) => {
@@ -106,14 +97,9 @@ router.patch('/:id', (request, response) => {
 
 router.delete('/:id', (request, response) => {
   const { id } = request.params
-  const card = cards.find(card => card.id === id)
-  if (card) {
-    cards = cards.filter(card => card.id !== id)
-    return response.status(200).json(card)
-  } else {
-    const error = { message: 'Could not find object with that id.' }
-    return response.status(404).json(error)
-  }
+  Card.findByIdAndDelete(id)
+    .then(deleteData => response.status(200).json(deleteData))
+    .catch(error => response.status(404).json(error))
 })
 
 module.exports = router
