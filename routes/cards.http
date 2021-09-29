@@ -11,19 +11,19 @@ Content-Type: application/json
 GET http://localhost:3000/api/cards
 
 ### GET ONE
-GET http://localhost:3000/api/cards/61543c3fa22ddadc24887a41
+GET http://localhost:3000/api/cards/:id
 
 ### PUT
-PUT http://localhost:3000/api/cards/1
+PUT http://localhost:3000/api/cards/:id
 Content-Type: application/json
 
 {
     "text": "This was a put request!",
-    "author": "John Doe"
+    "author": "Julie Doe"
 }
 
 ### PATCH
-PATCH http://localhost:3000/api/cards/1
+PATCH http://localhost:3000/api/cards/:id
 Content-Type: application/json
 
 {
@@ -31,4 +31,4 @@ Content-Type: application/json
 }
 
 ### DELETE
-DELETE http://localhost:3000/api/cards/61543c3fa22ddadc24887a41
+DELETE http://localhost:3000/api/cards/:id

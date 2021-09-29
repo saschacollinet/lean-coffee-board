@@ -4,21 +4,12 @@ const { nanoid } = require('nanoid')
 
 const router = express.Router()
 
-let cards = [
-  {
-    text: 'What is MongoDB?',
-    author: 'John Doe',
-    id: '1',
-  },
-  {
-    text: 'What is Node.js',
-    author: 'Jane Doe',
-    id: '2',
-  },
-]
-
 router.post('/', (request, response) => {
   const { text, author } = request.body
+  if (text === '' || author === '') {
+    const error = { message: 'Information missing.' }
+    return response.status(400).json(error)
+  }
   const newCard = { text, author }
   Card.create(newCard)
     .then(newCard => response.status(201).json(newCard))
@@ -27,73 +18,45 @@ router.post('/', (request, response) => {
 
 router.get('/', (request, response) => {
   Card.find()
-    .then(data => response.status(200).json(data))
+    .then(allCards => response.status(200).json(allCards))
     .catch(error => response.status(404).json(error))
 })
 
 router.get('/:id', (request, response) => {
   const { id } = request.params
   Card.findById(id)
-    .then(singleData => response.status(200).json(singleData))
+    .then(singleCard => response.status(200).json(singleCard))
     .catch(error => response.status(404).json(error))
 })
 
 router.put('/:id', (request, response) => {
   const { id } = request.params
   const { text, author } = request.body
-
   if (!text || !author) {
     const error = { message: 'Information missing.' }
     return response.status(404).json(error)
   }
-
-  const card = cards.find(card => card.id === id)
-
-  if (!card) {
-    const error = { message: 'Could not find object with that id.' }
-    return response.status(404).json(error)
-  }
-
-  const newCard = {
-    text,
-    author,
-    id: card.id,
-  }
-  const index = cards.findIndex(card => card.id === id)
-  cards = [...cards.slice(0, index), newCard, ...cards.slice(index + 1)]
-  return response.status(200).json(newCard)
+  Card.findByIdAndUpdate(id, { text, author }, { new: true })
+    .then(updateCard => response.status(200).json(updateCard))
+    .catch(error => response.status(400).json(error))
 })
 
 router.patch('/:id', (request, response) => {
   const { id } = request.params
   const { text, author } = request.body
-
   if (!text && !author) {
     const error = { message: 'Information missing.' }
-    return response.status(404).json(error)
+    return response.status(400).json(error)
   }
-
-  const card = cards.find(card => card.id === id)
-
-  if (!card) {
-    const error = { message: 'Could not find object with that id.' }
-    return response.status(404).json(error)
-  }
-
-  const newCard = {
-    text: text ? text : card.text,
-    author: author ? author : card.author,
-    id: card.id,
-  }
-  const index = cards.findIndex(card => card.id === id)
-  cards = [...cards.slice(0, index), newCard, ...cards.slice(index + 1)]
-  return response.status(200).json(newCard)
+  Card.findByIdAndUpdate(id, { text, author }, { new: true })
+    .then(updateCard => response.status(200).json(updateCard))
+    .catch(error => response.status(400).json(error))
 })
 
 router.delete('/:id', (request, response) => {
   const { id } = request.params
   Card.findByIdAndDelete(id)
-    .then(deleteData => response.status(200).json(deleteData))
+    .then(deleteCard => response.status(200).json(deleteCard))
     .catch(error => response.status(404).json(error))
 })
 
